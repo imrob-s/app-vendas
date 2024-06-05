@@ -17,6 +17,13 @@ import java.util.Set;
  */
 public interface CrudService<TYPE> {
     /**
+     * Obtém o repositório JPA usado para executar operações no banco de dados.
+     *
+     * @return O repositório JPA usado pelo serviço.
+     */
+    JpaRepository<?, Long> getRepository();
+
+    /**
      * Encontra uma entidade pelo seu identificador único.
      *
      * @param id O identificador único da entidade a ser recuperada.
@@ -53,13 +60,6 @@ public interface CrudService<TYPE> {
      * @param id O identificador único da entidade a ser excluída.
      */
     void delete(Long id);
-
-    /**
-     * Obtém o repositório JPA usado para executar operações no banco de dados.
-     *
-     * @return O repositório JPA usado pelo serviço.
-     */
-    JpaRepository<?, Long> getRepository();
 
     /**
      * Verifica se uma entidade existe, lançando uma exceção se não existir.

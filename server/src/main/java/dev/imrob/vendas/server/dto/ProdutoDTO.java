@@ -22,7 +22,7 @@ public class ProdutoDTO {
     private Long id;
 
     @NotBlank(message = "Descrição é obrigatória")
-    @Size(max = 100, message = "Descrição deve ter no máximo 100 caracteres")
+    @Size(min = 2, max = 100, message = "Descrição deve ter no máximo 100 caracteres")
     private String descricao;
 
     @NotNull(message = "Preço é obrigatório")

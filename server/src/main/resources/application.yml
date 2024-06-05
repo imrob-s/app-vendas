@@ -2,20 +2,27 @@ spring:
   application:
     name: vendas-server
   datasource:
-    url: jdbc:postgresql://localhost:5432/db_vendas
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     sql-script-encoding: UTF-8
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: 'true'
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: 'true'
     open-in-view: 'false'
   mvc:
     locale-resolver: fixed
     locale: pt_BR
+    format:
+      date: dd-MM-yyyy
+      date-time: dd-MM-yyyy HH:mm:ss
+      time: HH:mm:ss
+logging:
+  level:
+    org.springframework.jdbc.core: TRACE

@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/db_vendas
+      DB_USERNAME: postgres
+      DB_PASSWORD: teste@VR
+    depends_on:
+      - db
+  db:
+    image: postgres:alpine
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: db_vendas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: teste@VR
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

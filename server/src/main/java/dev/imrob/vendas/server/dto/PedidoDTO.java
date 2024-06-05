@@ -1,27 +1,21 @@
 package dev.imrob.vendas.server.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import dev.imrob.vendas.server.entity.StatusPedido;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class PedidoDTO {
     private Long id;
-
-    @NotNull(message = "Cliente é obrigatório")
     private ClienteDTO cliente;
-
-    @NotNull(message = "Data é obrigatória")
-    @Column(name = "data", updatable = false)
-    private LocalDateTime dataHora;
+    private LocalDate data;
+    private Set<ItemPedidoDTO> itens = new HashSet<>();
+    private BigDecimal valorTotal;
+    private StatusPedido status;
 }
