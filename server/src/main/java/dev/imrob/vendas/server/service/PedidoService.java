@@ -57,7 +57,15 @@ public class PedidoService implements CrudService<PedidoDTO> {
     }
 
 
-
+    /**
+     * Cria um novo pedido, validando os dados, os itens, o limite de crédito do cliente e salvando no banco de dados.
+     *
+     * @param pedidoDTO O DTO com os dados do pedido.
+     * @return O ID do pedido criado.
+     * @throws ConstraintViolationException Se houver erros de validação nos dados ou nos itens do pedido.
+     * @throws LimiteCreditoException Se o cliente não tiver limite de crédito suficiente.
+     * @throws EntityNotFoundException Se o cliente ou algum produto não for encontrado.
+     */
     @Transactional
     public Long criarPedido(CriarPedidoDTO pedidoDTO) {
         validarCampos(pedidoDTO);
@@ -310,6 +318,15 @@ public class PedidoService implements CrudService<PedidoDTO> {
         }
     }
 
+    /**
+     * Valida os campos de um DTO de criação de pedido.
+     *
+     * <p>Esta função verifica se os campos do DTO {@link CriarPedidoDTO}
+     * são válidos de acordo com as restrições definidas na classe.</p>
+     *
+     * @param dto O DTO de criação de pedido a ser validado.
+     * @throws ConstraintViolationException Se algum campo do DTO for inválido.
+     */
     private void validarCampos(CriarPedidoDTO dto) {
         Set<ConstraintViolation<CriarPedidoDTO>> violations = Validation
                 .buildDefaultValidatorFactory()
