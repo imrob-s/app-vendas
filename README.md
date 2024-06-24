@@ -67,28 +67,50 @@
 
 #### Backend
 
-1. Clone o repositório:
-    ```sh
-    git clone https://github.com/imrob-s/app-vendas.git
-    cd ./app-vendas/server
+1. Dentro de uma pasta de sua preferencia crie um arquivo chamado `docker-compose.yml`
+2. Copie o codigo abaixo e cole dentro do arquivo `docker-compose.yml` criado:
+    ```yaml
+    services:
+      app:
+        image: imrob/app-vendas-api
+        container_name: app-vendas
+        ports:
+          - "8080:8080"
+        environment:
+          DB_URL: jdbc:postgresql://db:5432/db_vendas
+          DB_USERNAME: postgres
+          DB_PASSWORD: teste@VR
+        depends_on:
+          - db
+      db:
+        image: postgres:alpine
+        container_name: db
+        ports:
+          - "5432:5432"
+        environment:
+          POSTGRES_DB: db_vendas
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: teste@VR
+        volumes:
+          - postgres_data:/var/lib/postgresql/data
+    
+    volumes:
+      postgres_data:
     ```
 
-2. Construa e inicie os containers Docker:
+2. Agora abra o terminal na pasta em que se encontra o arquivo criado e execute os containers docker:
     ```sh
-    docker-compose up --build
+    docker-compose up
     ```
 
    O backend estará disponível na porta `8080`.
 
 #### Frontend
 
-1. Navegue até o diretório do frontend:
+1. Baixe a última versão da aplicação Vendas App na seção de releases: https://github.com/imrob-s/app-vendas/releases/latest
+2. Execute o arquivo JAR da aplicação. (Antes verifique de estar usando a versão do java 17 ou posterior)
     ```sh
-    cd client
-    ```
-
-2. Compile e execute a aplicação Swing:
-    ```sh
+    java -version
     java -jar AppVendas.jar
     ```
 
